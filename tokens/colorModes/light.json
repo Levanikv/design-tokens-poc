@@ -1,0 +1,915 @@
+{
+  "wel": {
+    "sem": {
+      "text": {
+        "brandName": {
+          "$type": "text",
+          "$value": "{wel.web.bSem.text.light.brandName}",
+          "$description": "Figma only. Usage: link brand name props in components to Variants, e.g., media-fixed placeholder."
+        },
+        "modeName": {
+          "$type": "text",
+          "$value": "light",
+          "$description": "Figma only. Usage: link breakpoint props in component to breakpoint name, e.g., template."
+        }
+      },
+      "color": {
+        "brandLogos": {
+          "$type": "color",
+          "$value": "{wel.prim.color.grey.0}",
+          "$description": "Figma only. Usage: link breakpoint props in component to breakpoint name, e.g., template."
+        },
+        "loyalty-container-low": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.loyalty-container-low}",
+          "$description": "Subtle loyalty container. Usage: Low-emphasis loyalty UI elements."
+        },
+        "loyalty-container-hi": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.loyalty-container-hi}",
+          "$description": "Prominent loyalty container. Usage: High-emphasis loyalty UI elements."
+        },
+        "on-loyalty-container-low": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-loyalty-container-low}",
+          "$description": "Text on subtle loyalty container. Usage: content on low-emphasis loyalty elements."
+        },
+        "on-loyalty-container-hi": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-loyalty-container-hi}",
+          "$description": "Text on prominent loyalty container. Usage: content on high-emphasis loyalty elements."
+        },
+        "loyalty": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.loyalty}",
+          "$description": "Loyalty program color. Usage: Member-exclusive features and benefits."
+        },
+        "on-loyalty": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-loyalty}",
+          "$description": "Text on loyalty elements. Usage: content on primary loyalty elements."
+        },
+        "outline-loyalty": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.outline-loyalty}",
+          "$description": "Outline loyalty program color. Usage: Member-exclusive features and benefits."
+        },
+        "primary-container-low": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.primary-container-low}",
+          "$description": "Low-emphasis primary container. Usage: Subtle container with brand color influence."
+        },
+        "primary-container-hi": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.primary-container-hi}",
+          "$description": "High-emphasis primary container. Usage: Prominent container with brand color influence."
+        },
+        "primary": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.primary}",
+          "$description": "Primary action color. Buttons, key UI elements."
+        },
+        "on-primary": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-primary}",
+          "$description": "Text on primary color, e.g., content on primary buttons."
+        },
+        "on-primary-container": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-primary-container}",
+          "$description": "Content on primary container (text, icon, ...)"
+        },
+        "outline-primary-hi": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.outline-primary-hi}",
+          "$description": "High-emphasis primary outline. Usage: strong primary element borders"
+        },
+        "outline-primary-low": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.outline-primary-low}",
+          "$description": "Low-emphasis primary outline. Usage: Subtle primary element borders"
+        },
+        "secondary-container": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.secondary-container}",
+          "$description": "Secondary container surface. Usage: Alternative container backgrounds."
+        },
+        "on-secondary-container": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-secondary-container}",
+          "$description": "Text on secondary containers. Usage: Text and icons on secondary containers."
+        },
+        "outline-secondary": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.outline-secondary}",
+          "$description": "Secondary outline. Usage: borders for secondary elements."
+        },
+        "accent-container-low": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.accent-container-low}",
+          "$description": "Subtle accent container. Usage: Low-emphasis accent UI elements."
+        },
+        "accent-container-hi": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.accent-container-hi}",
+          "$description": "High-emphasis accent container. Usage: Prominent accent UI elements."
+        },
+        "on-accent-container": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-accent-container}",
+          "$description": "Text on accent container. Usage: content on accent containers."
+        },
+        "accent": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.accent}",
+          "$description": "Accent color. Usage: secondary interactive elements."
+        },
+        "on-accent": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-accent}",
+          "$description": "Text on accent color. Usage: Content on accent elements."
+        },
+        "outline-accent": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.outline-accent}",
+          "$description": "Accent color. Usage: secondary interactive elements."
+        },
+        "surface": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.surface}",
+          "$description": "Brand surface background"
+        },
+        "surface-container-low": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.surface-container-low}",
+          "$description": "Low-emphasis container surface. Usage: subtle container backgrounds."
+        },
+        "surface-container-mid": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.surface-container-mid}",
+          "$description": "Medium-emphasis container surface. Usage: standard container backgrounds."
+        },
+        "surface-container-hi": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.surface-container-hi}",
+          "$description": "High-emphasis container surface. Usage: prominent container backgrounds."
+        },
+        "on-surface-low": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-surface-low}",
+          "$description": "Low-emphasis surface content. Usage: Subtle text, secondary information."
+        },
+        "on-surface-mid": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-surface-mid}",
+          "$description": "Medium-emphasis surface content. Usage: standard text content."
+        },
+        "on-surface-hi": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-surface-hi}",
+          "$description": "High-emphasis surface content. Usage: Important text, headings."
+        },
+        "outline-low": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.outline-low}",
+          "$description": "Low-emphasis outline. Usage: subtle borders."
+        },
+        "outline-mid": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.outline-mid}",
+          "$description": "Medium-emphasis outline. Usage: standard borders."
+        },
+        "outline-hi": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.outline-hi}",
+          "$description": "High-emphasis outline. Usage: prominent borders."
+        },
+        "neutral-container": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.neutral-container}",
+          "$description": "Neutral container background. Usage: contrasting background in current theme."
+        },
+        "on-neutral-container": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-neutral-container}",
+          "$description": "Text on neutral container background. Usage: content on neutral container."
+        },
+        "danger-container-low": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.danger-container-low}",
+          "$description": "Low-emphasis danger container. Usage: subtle error indicators."
+        },
+        "danger-container-hi": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.danger-container-hi}",
+          "$description": "High-emphasis danger container. Usage: prominent error indicators."
+        },
+        "on-danger-container-low": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-danger-container-low}",
+          "$description": "Text on subtle danger container. Usage: content on subtle error elements."
+        },
+        "on-danger-container-hi": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-danger-container-hi}",
+          "$description": "Text on prominent danger container. Usage: content on prominent error elements."
+        },
+        "danger": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.danger}",
+          "$description": "Danger color. Usage: error states, destructive actions."
+        },
+        "on-danger": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-danger}",
+          "$description": "Text on danger color. Usage: content on error elements."
+        },
+        "outline-danger": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.outline-danger}",
+          "$description": "Outline danger color. Usage: error states, destructive actions."
+        },
+        "warning-container-low": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.warning-container-low}",
+          "$description": "Low-emphasis warning container. Usage: subtle warning indicators."
+        },
+        "warning-container-hi": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.warning-container-hi}",
+          "$description": "High-emphasis warning container. Usage: prominent warning indicators."
+        },
+        "on-warning-container": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-warning-container}",
+          "$description": "Content on warning elements."
+        },
+        "warning": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.warning}",
+          "$description": "Warning color. Usage: cautionary states, alerts."
+        },
+        "on-warning": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-warning}",
+          "$description": "Content on warning elements."
+        },
+        "outline-warning": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.outline-warning}",
+          "$description": "Outline warning color. Usage: cautionary states, alerts."
+        },
+        "success-container-low": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.success-container-low}",
+          "$description": "Low-emphasis success container. Usage: subtle success indicators."
+        },
+        "success-container-hi": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.success-container-hi}",
+          "$description": "High-emphasis success container. Usage: prominent success indicators."
+        },
+        "on-success-container-low": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-success-container-low}",
+          "$description": "content on subtle success container. Usage: content on subtle success elements"
+        },
+        "on-success-container-hi": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-success-container-hi}",
+          "$description": "Content on priminent success container. Usage: content on prominentsuccess elements"
+        },
+        "success": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.success}",
+          "$description": "Success color. Usage: positive actions, completion states."
+        },
+        "on-success": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-success}",
+          "$description": "Content on success elements."
+        },
+        "outline-success": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.outline-success}",
+          "$description": "Success outline color. Usage: positive actions, completion states."
+        },
+        "offer-container-low": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.offer-container-low}",
+          "$description": "Low-emphasis offer container. Usage: subtle promotional content."
+        },
+        "offer-container-hi": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.offer-container-hi}",
+          "$description": "High-emphasis offer container. Usage: prominent promotional content."
+        },
+        "on-offer-container-low": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-offer-container-low}",
+          "$description": "Content on subtle promotional elements."
+        },
+        "on-offer-container-hi": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-offer-container-hi}",
+          "$description": "Content on prominent promotional elements."
+        },
+        "offer": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.offer}",
+          "$description": "Offer color. Usage: special promotions, deals."
+        },
+        "on-offer": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-offer}",
+          "$description": "Content on promotional elements"
+        },
+        "outline-offer": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.outline-offer}",
+          "$description": "Outline offer color. Usage: special promotions, deals."
+        },
+        "eco-container-low": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.eco-container-low}",
+          "$description": "Low-emphasis eco container. Usage: subtle sustainability indicators."
+        },
+        "eco-container-hi": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.eco-container-hi}",
+          "$description": "High-emphasis eco container. Usage: prominent sustainability indicators."
+        },
+        "on-eco-container-low": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-eco-container-low}",
+          "$description": "Content on subtle sustainability elements."
+        },
+        "on-eco-container-hi": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-eco-container-hi}",
+          "$description": "Content on prominent sustainability elements."
+        },
+        "eco": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.eco}",
+          "$description": "Eco-friendly color."
+        },
+        "on-eco": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-eco}",
+          "$description": "Content on sustainability elements."
+        },
+        "outline-eco": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.outline-eco}",
+          "$description": "Outline eco-friendly color."
+        },
+        "family-container-low": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.family-container-low}",
+          "$description": "Low-emphasis family friendly container. Usage: subtle family indicators."
+        },
+        "family-container-hi": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.family-container-hi}",
+          "$description": "High-emphasis family container. Usage: prominent family indicators."
+        },
+        "on-family-container-low": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-family-container-low}",
+          "$description": "Content on subtle family containers."
+        },
+        "on-family-container-hi": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-family-container-hi}",
+          "$description": "Content on prominent family containers."
+        },
+        "family": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.family}",
+          "$description": "Family friendly color."
+        },
+        "on-family": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.on-family}",
+          "$description": "On family friendly colors."
+        },
+        "outline-family": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.outline-family}",
+          "$description": "Family friendly outline. Usage: borders for family friendly elements."
+        },
+        "link": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.link}",
+          "$description": "Link color. Usage: hyperlinks, interactive text."
+        },
+        "watermark": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.watermark}",
+          "$description": "Subtle watermark color. Usage: heading-section-primary Watermark."
+        },
+        "overlay-low": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.overlay-low}",
+          "$description": "Low-opacity overlay. Usage: subtle dimming overlays (30%)."
+        },
+        "overlay-mid": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.overlay-mid}",
+          "$description": "Medium-opacity overlay. Usage: standard dimming overlays (54%)."
+        },
+        "overlay-hi": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.overlay-hi}",
+          "$description": "High-opacity overlay. Usage: strong dimming overlays (70%)."
+        },
+        "overlay-max": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.overlay-max}",
+          "$description": "Maximum-opacity overlay. Usage: near-opaque overlays (90%)."
+        },
+        "shadow-default": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.shadow-default}",
+          "$description": "Standard shadow color. Usage: default shadow with medium opacity."
+        },
+        "shadow-strong": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.shadow-strong}",
+          "$description": "High-contrast shadow. Usage: more prominent shadow for higher elevation."
+        },
+        "gradient-primary-hi-start": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.gradient-primary-hi-start}",
+          "$description": "High-emphasis primary gradient start. Usage: starting color for strong brand gradients."
+        },
+        "gradient-primary-hi-end": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.gradient-primary-hi-end}",
+          "$description": "High-emphasis primary gradient end. Usage: high-emphasis primary gradient end."
+        },
+        "gradient-primary-low-start": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.gradient-primary-low-start}",
+          "$description": "High-emphasis primary gradient end. Usage: Starting color for subtle brand gradients."
+        },
+        "gradient-primary-low-end": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.gradient-primary-low-end}",
+          "$description": "Low-emphasis primary gradient end. Usage: ending color for subtle brand gradients."
+        },
+        "gradient-secondary-start": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.gradient-secondary-start}",
+          "$description": "Secondary gradient start. Usage: starting color for secondary gradients."
+        },
+        "gradient-secondary-end": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.gradient-secondary-end}",
+          "$description": "Secondary gradient end. Usage: ending color for secondary gradients."
+        },
+        "gradient-white-min": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.gradient-white-min}",
+          "$description": "Minimum white opacity. Usage: starting point for white fade gradients (transparent)."
+        },
+        "gradient-white-max": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.gradient-white-max}",
+          "$description": "Maximum white opacity. Usage: ending point for white fade gradients (solid white)."
+        },
+        "gradient-black-min": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.gradient-black-min}",
+          "$description": "Minimum black opacity. Usage: starting point for black fade gradients (transparent)."
+        },
+        "gradient-black-mid": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.gradient-black-mid}",
+          "$description": "Mid-point for black fade gradients (semi-transparent). Usage: mid-point for black fade gradients (semi-transparent)."
+        },
+        "gradient-black-hi": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.gradient-black-hi}",
+          "$description": "High black opacity. Usage: strong point for black fade gradients (mostly opaque)."
+        },
+        "gradient-black-max": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.gradient-black-max}",
+          "$description": "Maximum black opacity. Usage: ending point for black fade gradients (solid black)."
+        },
+        "focus": {
+          "$type": "color",
+          "$value": "{wel.web.bSem.color.light.focus}",
+          "$description": "Outline for focused elements. Usage: keyboard focus states."
+        },
+        "hover": {
+          "primary": {
+            "$type": "color",
+            "$value": "{wel.web.bSem.color.light.hover.primary}",
+            "$description": "Primary hover state. Usage: hover effect for primary elements."
+          },
+          "secondary-container": {
+            "$type": "color",
+            "$value": "{wel.web.bSem.color.light.hover.secondary-container}",
+            "$description": "Secondary container hover. Usage: hover effect for secondary containers."
+          },
+          "accent": {
+            "$type": "color",
+            "$value": "{wel.web.bSem.color.light.hover.accent}",
+            "$description": "Accent hover state. Usage: hover effect for accent elements."
+          },
+          "transparent": {
+            "$type": "color",
+            "$value": "{wel.web.bSem.color.light.hover.transparent}",
+            "$description": "Transparent hover. Usage: subtle hover effect with transparency."
+          },
+          "surface-container-low": {
+            "$type": "color",
+            "$value": "{wel.web.bSem.color.light.hover.surface-container-low}",
+            "$description": "Low container hover. Usage: hover effect for subtle containers."
+          },
+          "surface-container-mid": {
+            "$type": "color",
+            "$value": "{wel.web.bSem.color.light.hover.surface-container-mid}",
+            "$description": "Mid container hover. Usage: hover effect for standard containers."
+          },
+          "surface-container-hi": {
+            "$type": "color",
+            "$value": "{wel.web.bSem.color.light.hover.surface-container-hi}",
+            "$description": "High container hover. Usage: hover effect for prominent containers."
+          },
+          "outline-hi": {
+            "$type": "color",
+            "$value": "{wel.web.bSem.color.light.hover.outline-hi}",
+            "$description": "Outline hover. Usage: hover effect for borders."
+          },
+          "neutral-container": {
+            "$type": "color",
+            "$value": "{wel.web.bSem.color.light.hover.neutral-container}",
+            "$description": "Neutral container hover. Usage: hover effect for neutral container elements."
+          },
+          "danger": {
+            "$type": "color",
+            "$value": "{wel.web.bSem.color.light.hover.danger}",
+            "$description": "Danger hover effect. Usage: hover state for error/warning elements."
+          },
+          "offer": {
+            "$type": "color",
+            "$value": "{wel.web.bSem.color.light.hover.offer}",
+            "$description": "Offer hover effect. Usage: hover state for promotional elements."
+          },
+          "eco": {
+            "$type": "color",
+            "$value": "{wel.web.bSem.color.light.hover.eco}",
+            "$description": "Eco hover effect. Usage: hover state for sustainability elements."
+          },
+          "link": {
+            "$type": "color",
+            "$value": "{wel.web.bSem.color.light.hover.link}",
+            "$description": "Link hover effect. Usage: hover state for hyperlinks and text links."
+          },
+          "classic": {
+            "$type": "color",
+            "$value": "{wel.prim.color.stratos.13}",
+            "$description": "Classic tier hover. Usage: hover state for classic membership elements;"
+          },
+          "silver": {
+            "$type": "color",
+            "$value": "{wel.prim.color.silver.41}",
+            "$description": "Silver tier hover. Usage: Hover state for silver membership elements."
+          },
+          "gold": {
+            "$type": "color",
+            "$value": "{wel.prim.color.gold.70}",
+            "$description": "Gold tier hover. Usage: hover state for gold membership elements."
+          },
+          "platinum": {
+            "$type": "color",
+            "$value": "{wel.prim.color.platinum.36}",
+            "$description": "Hover state for gold membership elements. Usage: hover state for gold membership elements."
+          },
+          "diamond": {
+            "$type": "color",
+            "$value": "{wel.prim.color.diamond.81}",
+            "$description": "Diamond tier hover. Usage: hover state for diamond membership elements."
+          },
+          "limitless": {
+            "$type": "color",
+            "$value": "{wel.prim.color.limitless.21}",
+            "$description": "Limitless tier hover. Usage: hover state for limitless membership elements."
+          }
+        },
+        "pressed": {
+          "primary": {
+            "$type": "color",
+            "$value": "{wel.web.bSem.color.light.pressed.primary}",
+            "$description": "Primary pressed effect. Usage: active state for primary buttons and key interactive elements."
+          },
+          "secondary-container": {
+            "$type": "color",
+            "$value": "{wel.web.bSem.color.light.pressed.secondary-container}",
+            "$description": "Secondary container pressed. Usage: active state for secondary containers and UI elements."
+          },
+          "accent": {
+            "$type": "color",
+            "$value": "{wel.web.bSem.color.light.pressed.accent}",
+            "$description": "Accent pressed effect. Usage: active state for accent-colored interactive elements."
+          },
+          "transparent": {
+            "$type": "color",
+            "$value": "{wel.web.bSem.color.light.pressed.transparent}",
+            "$description": "Transparent pressed effect. Usage: subtle active state with transparency for ghost elements."
+          },
+          "surface-container-low": {
+            "$type": "color",
+            "$value": "{wel.web.bSem.color.light.pressed.surface-container-low}",
+            "$description": "Low container pressed. Usage: active state for subtle container elements."
+          },
+          "surface-container-mid": {
+            "$type": "color",
+            "$value": "{wel.web.bSem.color.light.pressed.surface-container-mid}",
+            "$description": "Mid container pressed. Usage: active state for standard container elements."
+          },
+          "surface-container-hi": {
+            "$type": "color",
+            "$value": "{wel.web.bSem.color.light.pressed.surface-container-hi}",
+            "$description": "High container pressed. Usage: active state for prominent container elements."
+          },
+          "danger": {
+            "$type": "color",
+            "$value": "{wel.web.bSem.color.light.pressed.danger}",
+            "$description": "Danger pressed effect. Usage: active state for error/warning elements."
+          },
+          "offer": {
+            "$type": "color",
+            "$value": "{wel.web.bSem.color.light.pressed.offer}",
+            "$description": "Offer pressed effect. Usage: active state for promotional elements."
+          },
+          "eco": {
+            "$type": "color",
+            "$value": "{wel.web.bSem.color.light.pressed.eco}",
+            "$description": "Eco pressed effect. Usage: active state for sustainability elements."
+          },
+          "link": {
+            "$type": "color",
+            "$value": "{wel.web.bSem.color.light.pressed.link}",
+            "$description": "Link pressed effect. Usage:  active state for hyperlinks and text links."
+          },
+          "classic": {
+            "$type": "color",
+            "$value": "{wel.prim.color.stratos.24}",
+            "$description": "Classic tier pressed state. Active state for classic membership elements."
+          },
+          "silver": {
+            "$type": "color",
+            "$value": "{wel.prim.color.silver.31}",
+            "$description": "Silver tier pressed state. Usage: silver tier pressed state"
+          },
+          "gold": {
+            "$type": "color",
+            "$value": "{wel.prim.color.gold.78}",
+            "$description": "Gold tier pressed state. Usage: active state for gold membership elements."
+          },
+          "platinum": {
+            "$type": "color",
+            "$value": "{wel.prim.color.platinum.45}",
+            "$description": "Platinum tier pressed state. Usage: active state for platinum membership elements."
+          },
+          "diamond": {
+            "$type": "color",
+            "$value": "{wel.prim.color.diamond.87}",
+            "$description": "Diamond tier pressed state.  Usage: active state for diamond membership elements."
+          },
+          "limitless": {
+            "$type": "color",
+            "$value": "{wel.prim.color.limitless.31}",
+            "$description": "Limitless tier pressed state. Usage: limitless tier pressed state."
+          }
+        },
+        "all-primary": {
+          "$type": "color",
+          "$value": "{wel.prim.color.stratos.2}",
+          "$description": "ALL's primary color, fixed between brands' themes. Usage: mostly used for ALL logos and any element that needs to show ALL's primary color with no variation when a brand's theme is applied."
+        },
+        "classic": {
+          "$type": "color",
+          "$value": "{wel.prim.color.stratos.2}",
+          "$description": "Classic tier color. Usage: entry-level membership styling."
+        },
+        "silver": {
+          "$type": "color",
+          "$value": "{wel.prim.color.silver.50}",
+          "$description": "Silver tier color. Silver membership styling."
+        },
+        "gold": {
+          "$type": "color",
+          "$value": "{wel.prim.color.gold.61}",
+          "$description": "Gold tier color. Usage: gold membership styling."
+        },
+        "platinum": {
+          "$type": "color",
+          "$value": "{wel.prim.color.platinum.27}",
+          "$description": "Platinum tier color. Usage: \tplatinum membership styling."
+        },
+        "diamond": {
+          "$type": "color",
+          "$value": "{wel.prim.color.diamond.76}",
+          "$description": "Diamond tier color. Usage: diamond membership styling."
+        },
+        "limitless": {
+          "$type": "color",
+          "$value": "{wel.prim.color.limitless.0}",
+          "$description": "Limitless tier color. Usage: top-tier membership styling."
+        }
+      },
+      "number": {
+        "shadow-blur": {
+          "$type": "number",
+          "$value": "{wel.web.bSem.number.light.shadow-blur}",
+          "$description": "More prominent shadow for higher elevation. Usage: Standard blur amount for shadows."
+        },
+        "shadow-wide-blur": {
+          "$type": "number",
+          "$value": "{wel.web.bSem.number.light.shadow-wide-blur}",
+          "$description": "Wide shadow blur. Usage: extended blur for elevated elements."
+        },
+        "shadow-up-y": {
+          "$type": "number",
+          "$value": "{wel.web.bSem.number.light.shadow-up-y}",
+          "$description": "Upward shadow offset. Usage: shadow above elements (negative Y value)."
+        },
+        "shadow-down-y": {
+          "$type": "number",
+          "$value": "{wel.web.bSem.number.light.shadow-down-y}",
+          "$description": "Downward shadow offset. Usage: shadow below elements (positive Y value)."
+        },
+        "shadow-down-wide-y": {
+          "$type": "number",
+          "$value": "{wel.web.bSem.number.light.shadow-down-wide-y}",
+          "$description": "Shadow below elements (positive Y value). Usage: extended shadow below important elements."
+        },
+        "backgroundBlur": {
+          "$type": "number",
+          "$value": "{wel.web.bSem.number.light.backgroundBlur}",
+          "$description": "Standard blur amount. Usage: Default backdrop blur effect."
+        }
+      }
+    },
+    "comp": {
+      "btn": {
+        "primary": {
+          "fg-color": {
+            "$type": "color",
+            "$value": "{wel.web.bComp.btn.primary.light.fg-color}"
+          },
+          "bg-gradient-start": {
+            "$type": "color",
+            "$value": "{wel.web.bComp.btn.primary.light.bg-gradient-start}"
+          },
+          "bg-gradient-end": {
+            "$type": "color",
+            "$value": "{wel.web.bComp.btn.primary.light.bg-gradient-end}"
+          },
+          "bg-color": {
+            "$type": "color",
+            "$value": "{wel.web.bComp.btn.primary.light.bg-color}"
+          },
+          "border-color": {
+            "$type": "color",
+            "$value": "{wel.web.bComp.btn.primary.light.border-color}"
+          },
+          "hover": {
+            "fg-color": {
+              "$type": "color",
+              "$value": "{wel.web.bComp.btn.primary.light.hover.fg-color}"
+            },
+            "bg-gradient-start": {
+              "$type": "color",
+              "$value": "{wel.web.bComp.btn.primary.light.hover.bg-gradient-start}"
+            },
+            "bg-gradient-end": {
+              "$type": "color",
+              "$value": "{wel.web.bComp.btn.primary.light.hover.bg-gradient-end}"
+            },
+            "bg-color": {
+              "$type": "color",
+              "$value": "{wel.web.bComp.btn.primary.light.hover.bg-color}"
+            },
+            "border-color": {
+              "$type": "color",
+              "$value": "{wel.web.bComp.btn.primary.light.hover.border-color}"
+            }
+          },
+          "pressed": {
+            "fg-color": {
+              "$type": "color",
+              "$value": "{wel.web.bComp.btn.primary.light.pressed.fg-color}"
+            },
+            "bg-color": {
+              "$type": "color",
+              "$value": "{wel.web.bComp.btn.primary.light.pressed.bg-color}"
+            },
+            "border-color": {
+              "$type": "color",
+              "$value": "{wel.web.bComp.btn.primary.light.pressed.border-color}"
+            }
+          }
+        },
+        "secondary": {
+          "fg-color": {
+            "$type": "color",
+            "$value": "{wel.web.bComp.btn.secondary.light.fg-color}"
+          },
+          "bg-color": {
+            "$type": "color",
+            "$value": "{wel.web.bComp.btn.secondary.light.bg-color}"
+          },
+          "border-color": {
+            "$type": "color",
+            "$value": "{wel.web.bComp.btn.secondary.light.border-color}"
+          },
+          "hover": {
+            "fg-color": {
+              "$type": "color",
+              "$value": "{wel.web.bComp.btn.secondary.light.hover.fg-color}"
+            },
+            "bg-gradient-start": {
+              "$type": "color",
+              "$value": "{wel.web.bComp.btn.secondary.light.hover.bg-gradient-start}"
+            },
+            "bg-gradient-end": {
+              "$type": "color",
+              "$value": "{wel.web.bComp.btn.secondary.light.hover.bg-gradient-end}"
+            },
+            "bg-color": {
+              "$type": "color",
+              "$value": "{wel.web.bComp.btn.secondary.light.hover.bg-color}"
+            },
+            "border-color": {
+              "$type": "color",
+              "$value": "{wel.web.bComp.btn.secondary.light.hover.border-color}"
+            }
+          },
+          "pressed": {
+            "fg-color": {
+              "$type": "color",
+              "$value": "{wel.web.bComp.btn.secondary.light.pressed.fg-color}"
+            },
+            "bg-color": {
+              "$type": "color",
+              "$value": "{wel.web.bComp.btn.secondary.light.pressed.bg-color}"
+            },
+            "border-color": {
+              "$type": "color",
+              "$value": "{wel.web.bComp.btn.secondary.light.pressed.border-color}"
+            }
+          }
+        },
+        "tertiary": {
+          "fg-color": {
+            "$type": "color",
+            "$value": "{wel.web.bComp.btn.tertiary.light.fg-color}"
+          },
+          "bg-color": {
+            "$type": "color",
+            "$value": "{wel.web.bComp.btn.tertiary.light.bg-color}"
+          },
+          "border-color": {
+            "$type": "color",
+            "$value": "{wel.web.bComp.btn.tertiary.light.border-color}"
+          },
+          "hover": {
+            "fg-color": {
+              "$type": "color",
+              "$value": "{wel.web.bComp.btn.tertiary.light.hover.fg-color}"
+            },
+            "bg-color": {
+              "$type": "color",
+              "$value": "{wel.web.bComp.btn.tertiary.light.hover.bg-color}"
+            },
+            "border-color": {
+              "$type": "color",
+              "$value": "{wel.web.bComp.btn.tertiary.light.hover.border-color}"
+            }
+          },
+          "pressed": {
+            "fg-color": {
+              "$type": "color",
+              "$value": "{wel.web.bComp.btn.tertiary.light.pressed.fg-color}"
+            },
+            "bg-color": {
+              "$type": "color",
+              "$value": "{wel.web.bComp.btn.tertiary.light.pressed.bg-color}"
+            },
+            "border-color": {
+              "$type": "color",
+              "$value": "{wel.web.bComp.btn.tertiary.light.pressed.border-color}"
+            }
+          }
+        }
+      }
+    }
+  }
+}
