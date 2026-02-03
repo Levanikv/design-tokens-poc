@@ -36,34 +36,33 @@ jobs:
           path: build/kotlin/
           retention-days: 30
 
-      # --- Uncomment when your Android repo is ready ---
-      # - name: Checkout Android repo
-      #   uses: actions/checkout@v4
-      #   with:
-      #     repository: YOUR_ORG/YOUR_ANDROID_REPO
-      #     token: ${{ secrets.ANDROID_REPO_TOKEN }}
-      #     path: android-app
-      #
-      # - name: Copy tokens to Android repo
-      #   run: |
-      #     mkdir -p android-app/app/src/main/java/com/example/designtokens/
-      #     cp build/kotlin/*.kt android-app/app/src/main/java/com/example/designtokens/
-      #
-      # - name: Create Pull Request
-      #   uses: peter-evans/create-pull-request@v6
-      #   with:
-      #     path: android-app
-      #     token: ${{ secrets.ANDROID_REPO_TOKEN }}
-      #     commit-message: "chore: update design tokens from Figma"
-      #     title: "Update Design Tokens"
-      #     body: |
-      #       Automated PR to update design tokens from Figma.
-      #
-      #       **Source commit:** ${{ github.sha }}
-      #
-      #       **Files updated:**
-      #       - PrimitiveColors.kt
-      #       - LightColors.kt
-      #       - DarkColors.kt
-      #     branch: update-design-tokens
-      #     delete-branch: true
+      - name: Checkout Android repo
+        uses: actions/checkout@v4
+        with:
+          repository: Levanikv/android-tokens-poc
+          token: ${{ secrets.ANDROID_REPO_TOKEN }}
+          path: android-app
+
+      - name: Copy tokens to Android repo
+        run: |
+          mkdir -p android-app/designtokens/
+          cp build/kotlin/*.kt android-app/designtokens/
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          path: android-app
+          token: ${{ secrets.ANDROID_REPO_TOKEN }}
+          commit-message: "chore: update design tokens from Figma"
+          title: "Update Design Tokens"
+          body: |
+            Automated PR to update design tokens from Figma.
+
+            **Source commit:** ${{ github.sha }}
+
+            **Files updated:**
+            - PrimitiveColors.kt
+            - LightColors.kt
+            - DarkColors.kt
+          branch: update-design-tokens
+          delete-branch: true
