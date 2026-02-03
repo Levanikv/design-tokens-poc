@@ -71,7 +71,7 @@
               },
               "100": {
                 "$type": "color",
-                "$value": "red"
+                "$value": "#ffffff"
               }
             }
           },
