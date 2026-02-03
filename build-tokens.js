@@ -93,7 +93,13 @@ StyleDictionary.registerFormat({
     const objectName = options.objectName || 'Colors';
 
     const tokens = dictionary.allTokens
-      .filter(token => (token.$type || token.type) === 'color')
+      .filter(token => {
+        if ((token.$type || token.type) !== 'color') return false;
+        // Exclude hover and pressed states (not needed for mobile)
+        const pathStr = token.path.join('.').toLowerCase();
+        if (pathStr.includes('hover') || pathStr.includes('pressed')) return false;
+        return true;
+      })
       .map(token => {
         const value = token.value || token.$value;
         const composeColor = toComposeColor(value);
