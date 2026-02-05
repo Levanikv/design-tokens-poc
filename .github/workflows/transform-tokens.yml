@@ -41,6 +41,7 @@ jobs:
         with:
           repository: AccorECOM/AH_AND
           token: ${{ secrets.ANDROID_REPO_TOKEN }}
+          ref: develop
           path: android-app
 
       - name: Copy tokens to Android repo
@@ -65,4 +66,5 @@ jobs:
             - AccorColorPrimitives.kt
             - AccorColorSemantics.kt
           branch: update-design-tokens
+          base: develop
           delete-branch: true
