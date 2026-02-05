@@ -310,9 +310,6 @@ function generateMergedSemanticColors(packageName, objectName) {
   return `package ${packageName}
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import com.accor.designsystem.compose.AccorColor.getColor
 
 object ${objectName} {
