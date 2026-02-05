@@ -49,10 +49,9 @@ function toPascalCase(str) {
     .map(part => {
       // Handle numbers - just return as is
       if (/^\d+$/.test(part)) return part;
-      // Capitalize first letter, keep rest as is for camelCase parts
-      // Then handle known compound words
+      // Capitalize first letter
       let result = part.charAt(0).toUpperCase() + part.slice(1);
-      // Fix common compound words
+      // Fix all compound words - each word starts with uppercase
       result = result
         .replace(/grey/gi, 'Grey')
         .replace(/blue/gi, 'Blue')
@@ -62,11 +61,62 @@ function toPascalCase(str) {
         .replace(/yellow/gi, 'Yellow')
         .replace(/red/gi, 'Red')
         .replace(/pink/gi, 'Pink')
-        .replace(/alpha/gi, 'Alpha');
+        .replace(/alpha/gi, 'Alpha')
+        .replace(/container/gi, 'Container')
+        .replace(/surface/gi, 'Surface')
+        .replace(/outline/gi, 'Outline')
+        .replace(/primary/gi, 'Primary')
+        .replace(/secondary/gi, 'Secondary')
+        .replace(/accent/gi, 'Accent')
+        .replace(/loyalty/gi, 'Loyalty')
+        .replace(/danger/gi, 'Danger')
+        .replace(/warning/gi, 'Warning')
+        .replace(/success/gi, 'Success')
+        .replace(/offer/gi, 'Offer')
+        .replace(/family/gi, 'Family')
+        .replace(/neutral/gi, 'Neutral')
+        .replace(/gradient/gi, 'Gradient')
+        .replace(/shadow/gi, 'Shadow')
+        .replace(/overlay/gi, 'Overlay')
+        .replace(/watermark/gi, 'Watermark')
+        .replace(/brand/gi, 'Brand')
+        .replace(/logos/gi, 'Logos')
+        .replace(/focus/gi, 'Focus')
+        .replace(/link/gi, 'Link')
+        .replace(/eco/gi, 'Eco')
+        .replace(/naval/gi, 'Naval')
+        .replace(/royal/gi, 'Royal')
+        .replace(/electric/gi, 'Electric')
+        .replace(/duck/gi, 'Duck')
+        .replace(/lime/gi, 'Lime')
+        .replace(/peacock/gi, 'Peacock')
+        .replace(/pop/gi, 'Pop')
+        .replace(/strawberry/gi, 'Strawberry')
+        .replace(/raspberry/gi, 'Raspberry')
+        .replace(/fuchsia/gi, 'Fuchsia')
+        .replace(/marine/gi, 'Marine')
+        .replace(/sky/gi, 'Sky')
+        .replace(/tropos/gi, 'Tropos')
+        .replace(/stratos/gi, 'Stratos')
+        .replace(/platinum/gi, 'Platinum')
+        .replace(/diamond/gi, 'Diamond')
+        .replace(/gold/gi, 'Gold')
+        .replace(/silver/gi, 'Silver')
+        .replace(/limitless/gi, 'Limitless')
+        .replace(/classic/gi, 'Classic')
+        .replace(/temp/gi, 'Temp')
+        .replace(/mid/gi, 'Mid')
+        .replace(/low/gi, 'Low')
+        .replace(/max/gi, 'Max')
+        .replace(/min/gi, 'Min')
+        .replace(/start/gi, 'Start')
+        .replace(/end/gi, 'End')
+        .replace(/default/gi, 'Default')
+        .replace(/strong/gi, 'Strong');
       return result;
     })
     .join('')
-    // Replace Hi with High (but not in middle of word like "High")
+    // Replace Hi with High (but not in middle of word)
     .replace(/Hi$/g, 'High')
     .replace(/Hi([A-Z])/g, 'High$1');
 }
