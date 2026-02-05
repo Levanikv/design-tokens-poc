@@ -89,9 +89,11 @@ StyleDictionary.registerFormat({
         const composeColor = toComposeColor(value);
         if (!composeColor) return null;
         const name = toPrimitiveKotlinName(token.path);
-        return `    val ${name} = ${composeColor}`;
+        return { name, line: `    val ${name} = ${composeColor}` };
       })
       .filter(Boolean)
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .map(item => item.line)
       .join('\n');
 
     return `package ${packageName}
