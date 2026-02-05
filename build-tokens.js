@@ -48,11 +48,13 @@ function toPrimitiveKotlinName(path) {
   const fullName = path.join('-');
 
   // Remove prefixes like wel-prim-color-leg-, wel-prim-color-, etc.
+  // Also remove "leg" group entirely
   let cleanName = fullName
     .replace(/^wel-prim-color-leg-/i, '')
     .replace(/^wel-prim-color-/i, '')
     .replace(/^wel-prim-/i, '')
-    .replace(/^wel-/i, '');
+    .replace(/^wel-/i, '')
+    .replace(/^leg-/i, '');
 
   // Handle -temp suffix
   cleanName = cleanName.replace(/-temp$/i, 'Temp');
