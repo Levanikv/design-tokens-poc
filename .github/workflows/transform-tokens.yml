@@ -56,7 +56,7 @@ jobs:
           path: android-app
           token: ${{ secrets.ANDROID_REPO_TOKEN }}
           commit-message: "chore: update design tokens from Figma"
-          title: "Update Design Tokens"
+          title: "🎨 Update Design Tokens"
           body: |
             Automated PR to update design tokens from Figma.
 
