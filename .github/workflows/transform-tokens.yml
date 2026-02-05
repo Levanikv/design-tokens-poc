@@ -39,14 +39,15 @@ jobs:
       - name: Checkout Android repo
         uses: actions/checkout@v4
         with:
-          repository: Levanikv/android-tokens-poc
+          repository: AccorECOM/AH_AND
           token: ${{ secrets.ANDROID_REPO_TOKEN }}
           path: android-app
 
       - name: Copy tokens to Android repo
         run: |
-          mkdir -p android-app/designtokens/
-          cp build/kotlin/*.kt android-app/designtokens/
+          mkdir -p android-app/design/designsystem/library/src/main/kotlin/com/accor/designsystem/compose/
+          cp build/kotlin/AccorColorPrimitives.kt android-app/design/designsystem/library/src/main/kotlin/com/accor/designsystem/compose/
+          cp build/kotlin/AccorColorSemantics.kt android-app/design/designsystem/library/src/main/kotlin/com/accor/designsystem/compose/
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
@@ -61,8 +62,7 @@ jobs:
             **Source commit:** ${{ github.sha }}
 
             **Files updated:**
-            - PrimitiveColors.kt
-            - LightColors.kt
-            - DarkColors.kt
+            - AccorColorPrimitives.kt
+            - AccorColorSemantics.kt
           branch: update-design-tokens
           delete-branch: true

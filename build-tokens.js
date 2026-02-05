@@ -85,7 +85,7 @@ ${tokens}
   }
 });
 
-// Custom format: Kotlin Compose Colors object for semantic colors
+// Custom format: Kotlin Compose Colors object for semantic colors (single mode)
 StyleDictionary.registerFormat({
   name: 'compose/semantic',
   format: ({ dictionary, options }) => {
@@ -134,9 +134,87 @@ ${tokens}
   }
 });
 
+// Global storage for merged semantic colors
+const semanticColorsMap = new Map();
+
+// Custom format: Collect semantic colors for merging
+StyleDictionary.registerFormat({
+  name: 'compose/semantic-collect',
+  format: ({ dictionary, options }) => {
+    const mode = options.mode; // 'light' or 'dark'
+
+    dictionary.allTokens
+      .filter(token => {
+        if ((token.$type || token.type) !== 'color') return false;
+        const pathStr = token.path.join('.').toLowerCase();
+        if (pathStr.includes('hover') || pathStr.includes('pressed')) return false;
+        return true;
+      })
+      .forEach(token => {
+        const value = token.value || token.$value;
+        const composeColor = toComposeColor(value);
+        if (!composeColor) return;
+
+        const path = token.path;
+        const relevantPath = path.slice(3);
+        const name = relevantPath
+          .map((part, index) => {
+            if (/^\d/.test(part)) part = `_${part}`;
+            const camelPart = part.replace(/-([a-zA-Z0-9])/g, (_, char) => char.toUpperCase());
+            if (index === 0) return camelPart.charAt(0).toLowerCase() + camelPart.slice(1);
+            return camelPart.charAt(0).toUpperCase() + camelPart.slice(1);
+          })
+          .join('');
+
+        if (!semanticColorsMap.has(name)) {
+          semanticColorsMap.set(name, {});
+        }
+        semanticColorsMap.get(name)[mode] = composeColor;
+      });
+
+    // Return empty - we'll generate the real file later
+    return '';
+  }
+});
+
+// Function to generate merged semantic colors file
+function generateMergedSemanticColors(packageName, objectName) {
+  const tokens = Array.from(semanticColorsMap.entries())
+    .map(([name, colors]) => {
+      const light = colors.light || 'Color.Unspecified';
+      const dark = colors.dark || colors.light || 'Color.Unspecified';
+      return `    val ${name}
+        @Composable
+        get() = getColor(light = ${light}, dark = ${dark})`;
+    })
+    .join('\n\n');
+
+  return `package ${packageName}
+
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+
+object ${objectName} {
+${tokens}
+}
+
+@Composable
+private fun getColor(light: Color, dark: Color): Color {
+    return if (isSystemInDarkTheme()) dark else light
+}
+
+@Composable
+private fun isSystemInDarkTheme(): Boolean {
+    return androidx.compose.foundation.isSystemInDarkTheme()
+}
+`;
+}
+
 // Build configuration
 async function buildTokens() {
   console.log('Building design tokens for Android Compose...\n');
+
+  const packageName = 'com.accor.designsystem.compose';
 
   // Build primitives (all colors)
   const primitiveSD = new StyleDictionary({
@@ -147,11 +225,11 @@ async function buildTokens() {
         transformGroup: 'tokens-studio',
         buildPath: 'build/kotlin/',
         files: [{
-          destination: 'PrimitiveColors.kt',
+          destination: 'AccorColorPrimitives.kt',
           format: 'compose/primitives',
           options: {
-            packageName: 'com.example.designtokens',
-            objectName: 'PrimitiveColors'
+            packageName,
+            objectName: 'AccorColorPrimitives'
           }
         }]
       }
@@ -159,7 +237,10 @@ async function buildTokens() {
   });
   await primitiveSD.buildAllPlatforms();
 
-  // Build semantic colors - Light mode
+  // Clear the map before collecting
+  semanticColorsMap.clear();
+
+  // Collect Light mode colors
   const lightSD = new StyleDictionary({
     source: [
       'tokens/primitives/**/*.json',
@@ -175,14 +256,13 @@ async function buildTokens() {
         transformGroup: 'tokens-studio',
         buildPath: 'build/kotlin/',
         files: [{
-          destination: 'LightColors.kt',
-          format: 'compose/semantic',
+          destination: '_light_temp.kt',
+          format: 'compose/semantic-collect',
           filter: (token) => {
             return token.path[0] === 'wel' && token.path[1] === 'sem' && token.path[2] === 'color';
           },
           options: {
-            packageName: 'com.example.designtokens',
-            objectName: 'LightColors'
+            mode: 'light'
           }
         }]
       }
@@ -195,7 +275,7 @@ async function buildTokens() {
     console.log('Light mode warning:', e.message.split('\n')[0]);
   }
 
-  // Build semantic colors - Dark mode
+  // Collect Dark mode colors
   const darkSD = new StyleDictionary({
     source: [
       'tokens/primitives/**/*.json',
@@ -211,14 +291,13 @@ async function buildTokens() {
         transformGroup: 'tokens-studio',
         buildPath: 'build/kotlin/',
         files: [{
-          destination: 'DarkColors.kt',
-          format: 'compose/semantic',
+          destination: '_dark_temp.kt',
+          format: 'compose/semantic-collect',
           filter: (token) => {
             return token.path[0] === 'wel' && token.path[1] === 'sem' && token.path[2] === 'color';
           },
           options: {
-            packageName: 'com.example.designtokens',
-            objectName: 'DarkColors'
+            mode: 'dark'
           }
         }]
       }
@@ -231,7 +310,22 @@ async function buildTokens() {
     console.log('Dark mode warning:', e.message.split('\n')[0]);
   }
 
+  // Generate the merged semantic colors file
+  const fs = await import('fs');
+  const mergedContent = generateMergedSemanticColors(packageName, 'AccorColorSemantics');
+  fs.writeFileSync('build/kotlin/AccorColorSemantics.kt', mergedContent);
+
+  // Clean up temp files
+  try {
+    fs.unlinkSync('build/kotlin/_light_temp.kt');
+    fs.unlinkSync('build/kotlin/_dark_temp.kt');
+  } catch (e) {
+    // Ignore if files don't exist
+  }
+
   console.log('\nBuild complete! Output in build/kotlin/');
+  console.log('  - AccorColorPrimitives.kt');
+  console.log('  - AccorColorSemantics.kt');
 }
 
 buildTokens().catch(console.error);
