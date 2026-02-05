@@ -42,6 +42,35 @@ function toComposeColor(value) {
   return null;
 }
 
+// Helper to convert to proper PascalCase (each word capitalized)
+function toPascalCase(str) {
+  return str
+    .split('-')
+    .map(part => {
+      // Handle numbers - just return as is
+      if (/^\d+$/.test(part)) return part;
+      // Capitalize first letter, keep rest as is for camelCase parts
+      // Then handle known compound words
+      let result = part.charAt(0).toUpperCase() + part.slice(1);
+      // Fix common compound words
+      result = result
+        .replace(/grey/gi, 'Grey')
+        .replace(/blue/gi, 'Blue')
+        .replace(/green/gi, 'Green')
+        .replace(/white/gi, 'White')
+        .replace(/black/gi, 'Black')
+        .replace(/yellow/gi, 'Yellow')
+        .replace(/red/gi, 'Red')
+        .replace(/pink/gi, 'Pink')
+        .replace(/alpha/gi, 'Alpha');
+      return result;
+    })
+    .join('')
+    // Replace Hi with High (but not in middle of word like "High")
+    .replace(/Hi$/g, 'High')
+    .replace(/Hi([A-Z])/g, 'High$1');
+}
+
 // Helper to convert token path to Kotlin name (primitives) - PascalCase, simplified
 function toPrimitiveKotlinName(path) {
   // Join path and remove common prefixes
@@ -60,14 +89,7 @@ function toPrimitiveKotlinName(path) {
   cleanName = cleanName.replace(/-temp$/i, 'Temp');
 
   // Convert to PascalCase
-  return cleanName
-    .split('-')
-    .map(part => {
-      // Handle numbers - don't add underscore, just append
-      if (/^\d+$/.test(part)) return part;
-      return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
-    })
-    .join('');
+  return toPascalCase(cleanName);
 }
 
 // Custom format: Kotlin Compose Colors object for primitives
@@ -202,17 +224,11 @@ StyleDictionary.registerFormat({
 
         const path = token.path;
         const relevantPath = path.slice(3);
-        const name = relevantPath
-          .map((part, index) => {
-            if (/^\d/.test(part)) part = `_${part}`;
-            const camelPart = part.replace(/-([a-zA-Z0-9])/g, (_, char) => char.toUpperCase());
-            if (index === 0) return camelPart.charAt(0).toLowerCase() + camelPart.slice(1);
-            return camelPart.charAt(0).toUpperCase() + camelPart.slice(1);
-          })
-          .join('');
+        // Convert to PascalCase and apply Hi -> High rule
+        const name = toPascalCase(relevantPath.join('-'));
 
         if (!semanticColorsMap.has(name)) {
-          semanticColorsMap.set(name, {});
+          semanticColorsMap.set(name, { order: semanticColorsMap.size });
         }
         semanticColorsMap.get(name)[mode] = composeColor;
       });
@@ -231,6 +247,7 @@ function generateMergedSemanticColors(packageName, objectName) {
   };
 
   const tokens = Array.from(semanticColorsMap.entries())
+    .sort((a, b) => a[1].order - b[1].order) // Keep original JSON order
     .map(([name, colors]) => {
       const light = toPrimitiveRef(colors.light) || 'Color.Unspecified';
       const dark = toPrimitiveRef(colors.dark || colors.light) || 'Color.Unspecified';
@@ -238,7 +255,7 @@ function generateMergedSemanticColors(packageName, objectName) {
         @Composable
         get() = getColor(light = ${light}, dark = ${dark})`;
     })
-    .join('\n\n');
+    .join('\n');
 
   return `package ${packageName}
 
@@ -248,7 +265,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import com.accor.designsystem.compose.AccorColor.getColor
 
-@Suppress("MagicNumber")
 object ${objectName} {
 
 ${tokens}
