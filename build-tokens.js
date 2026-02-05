@@ -42,8 +42,8 @@ function toComposeColor(value) {
   return null;
 }
 
-// Helper to convert to proper PascalCase (each word capitalized)
-function toPascalCase(str) {
+// Helper to convert to proper PascalCase for primitives (color names)
+function toPascalCasePrimitive(str) {
   return str
     .split('-')
     .map(part => {
@@ -51,7 +51,7 @@ function toPascalCase(str) {
       if (/^\d+$/.test(part)) return part;
       // Capitalize first letter
       let result = part.charAt(0).toUpperCase() + part.slice(1);
-      // Fix all compound words - each word starts with uppercase
+      // Fix compound color words
       result = result
         .replace(/grey/gi, 'Grey')
         .replace(/blue/gi, 'Blue')
@@ -62,28 +62,6 @@ function toPascalCase(str) {
         .replace(/red/gi, 'Red')
         .replace(/pink/gi, 'Pink')
         .replace(/alpha/gi, 'Alpha')
-        .replace(/container/gi, 'Container')
-        .replace(/surface/gi, 'Surface')
-        .replace(/outline/gi, 'Outline')
-        .replace(/primary/gi, 'Primary')
-        .replace(/secondary/gi, 'Secondary')
-        .replace(/accent/gi, 'Accent')
-        .replace(/loyalty/gi, 'Loyalty')
-        .replace(/danger/gi, 'Danger')
-        .replace(/warning/gi, 'Warning')
-        .replace(/success/gi, 'Success')
-        .replace(/offer/gi, 'Offer')
-        .replace(/family/gi, 'Family')
-        .replace(/neutral/gi, 'Neutral')
-        .replace(/gradient/gi, 'Gradient')
-        .replace(/shadow/gi, 'Shadow')
-        .replace(/overlay/gi, 'Overlay')
-        .replace(/watermark/gi, 'Watermark')
-        .replace(/brand/gi, 'Brand')
-        .replace(/logos/gi, 'Logos')
-        .replace(/focus/gi, 'Focus')
-        .replace(/link/gi, 'Link')
-        .replace(/eco/gi, 'Eco')
         .replace(/naval/gi, 'Naval')
         .replace(/royal/gi, 'Royal')
         .replace(/electric/gi, 'Electric')
@@ -104,16 +82,21 @@ function toPascalCase(str) {
         .replace(/silver/gi, 'Silver')
         .replace(/limitless/gi, 'Limitless')
         .replace(/classic/gi, 'Classic')
-        .replace(/temp/gi, 'Temp')
-        .replace(/mid/gi, 'Mid')
-        .replace(/low/gi, 'Low')
-        .replace(/max/gi, 'Max')
-        .replace(/min/gi, 'Min')
-        .replace(/start/gi, 'Start')
-        .replace(/end/gi, 'End')
-        .replace(/default/gi, 'Default')
-        .replace(/strong/gi, 'Strong');
+        .replace(/temp/gi, 'Temp');
       return result;
+    })
+    .join('');
+}
+
+// Helper to convert to proper PascalCase for semantics
+function toPascalCaseSemantic(str) {
+  return str
+    .split('-')
+    .map(part => {
+      // Handle numbers - just return as is
+      if (/^\d+$/.test(part)) return part;
+      // Capitalize first letter
+      return part.charAt(0).toUpperCase() + part.slice(1);
     })
     .join('')
     // Replace Hi with High (but not in middle of word)
@@ -138,8 +121,8 @@ function toPrimitiveKotlinName(path) {
   // Handle -temp suffix
   cleanName = cleanName.replace(/-temp$/i, 'Temp');
 
-  // Convert to PascalCase
-  return toPascalCase(cleanName);
+  // Convert to PascalCase for primitives
+  return toPascalCasePrimitive(cleanName);
 }
 
 // Custom format: Kotlin Compose Colors object for primitives
@@ -274,8 +257,8 @@ StyleDictionary.registerFormat({
 
         const path = token.path;
         const relevantPath = path.slice(3);
-        // Convert to PascalCase and apply Hi -> High rule
-        const name = toPascalCase(relevantPath.join('-'));
+        // Convert to PascalCase for semantics (with Hi -> High rule)
+        const name = toPascalCaseSemantic(relevantPath.join('-'));
 
         if (!semanticColorsMap.has(name)) {
           semanticColorsMap.set(name, { order: semanticColorsMap.size });
