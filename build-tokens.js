@@ -216,26 +216,73 @@ ${tokens}
 // Global storage for merged semantic colors
 const semanticColorsMap = new Map();
 
-// Global storage for primitive color value -> name mapping
-const primitiveColorMap = new Map();
+// Global storage for primitive token path -> Kotlin name mapping
+const primitivePathMap = new Map();
 
-// Custom format: Collect primitive colors for reverse lookup (includes ALL primitives for mapping)
+// Global storage for brandbook token path -> primitive Kotlin name mapping
+const brandbookPathMap = new Map();
+
+// Custom format: Collect primitive colors for path-based lookup
 StyleDictionary.registerFormat({
   name: 'compose/primitives-collect',
   format: ({ dictionary }) => {
     dictionary.allTokens
       .filter(token => (token.$type || token.type) === 'color')
       .forEach(token => {
-        const value = token.value || token.$value;
-        const composeColor = toComposeColor(value);
-        if (!composeColor) return;
         const name = toPrimitiveKotlinName(token.path);
-        // Store hex value -> primitive name mapping
-        primitiveColorMap.set(composeColor, `AccorColorPrimitives.${name}`);
+        const pathKey = token.path.join('.');
+        primitivePathMap.set(pathKey, `AccorColorPrimitives.${name}`);
       });
     return '';
   }
 });
+
+// Custom format: Collect brandbook mappings to primitive names
+StyleDictionary.registerFormat({
+  name: 'compose/brandbook-collect',
+  format: ({ dictionary }) => {
+    dictionary.allTokens
+      .filter(token => (token.$type || token.type) === 'color')
+      .forEach(token => {
+        const pathKey = token.path.join('.');
+        // Get the original reference to find the primitive
+        const originalValue = token.original?.$value || token.original?.value;
+        if (originalValue && typeof originalValue === 'string') {
+          const match = originalValue.match(/^\{(.+)\}$/);
+          if (match) {
+            const primitivePath = match[1];
+            if (primitivePathMap.has(primitivePath)) {
+              brandbookPathMap.set(pathKey, primitivePathMap.get(primitivePath));
+            }
+          }
+        }
+      });
+    return '';
+  }
+});
+
+// Helper to get primitive reference from semantic token
+function getPrimitiveRef(token) {
+  const originalValue = token.original?.$value || token.original?.value;
+  if (!originalValue || typeof originalValue !== 'string') return null;
+
+  const match = originalValue.match(/^\{(.+)\}$/);
+  if (!match) return null;
+
+  const refPath = match[1];
+
+  // Check if it's a direct primitive reference
+  if (primitivePathMap.has(refPath)) {
+    return primitivePathMap.get(refPath);
+  }
+
+  // Check if it's a brandbook reference
+  if (brandbookPathMap.has(refPath)) {
+    return brandbookPathMap.get(refPath);
+  }
+
+  return null;
+}
 
 // Custom format: Collect semantic colors for merging
 StyleDictionary.registerFormat({
@@ -248,6 +295,8 @@ StyleDictionary.registerFormat({
         if ((token.$type || token.type) !== 'color') return false;
         const pathStr = token.path.join('.').toLowerCase();
         if (pathStr.includes('hover') || pathStr.includes('pressed')) return false;
+        // Only process semantic tokens (wel.sem.color.*)
+        if (token.path[0] !== 'wel' || token.path[1] !== 'sem' || token.path[2] !== 'color') return false;
         return true;
       })
       .forEach(token => {
@@ -260,10 +309,14 @@ StyleDictionary.registerFormat({
         // Convert to PascalCase for semantics (with Hi -> High rule)
         const name = toPascalCaseSemantic(relevantPath.join('-'));
 
+        // Get the primitive reference from the token's original value
+        const primitiveRef = getPrimitiveRef(token);
+
         if (!semanticColorsMap.has(name)) {
           semanticColorsMap.set(name, { order: semanticColorsMap.size });
         }
-        semanticColorsMap.get(name)[mode] = composeColor;
+        // Store the primitive reference if found, otherwise fall back to hex
+        semanticColorsMap.get(name)[mode] = primitiveRef || composeColor;
       });
 
     // Return empty - we'll generate the real file later
@@ -273,17 +326,12 @@ StyleDictionary.registerFormat({
 
 // Function to generate merged semantic colors file
 function generateMergedSemanticColors(packageName, objectName) {
-  // Helper to get primitive reference or fallback to hex
-  const toPrimitiveRef = (composeColor) => {
-    if (!composeColor || composeColor === 'Color.Unspecified') return 'Color.Unspecified';
-    return primitiveColorMap.get(composeColor) || composeColor;
-  };
-
   const tokens = Array.from(semanticColorsMap.entries())
     .sort((a, b) => a[1].order - b[1].order) // Keep original JSON order
     .map(([name, colors]) => {
-      const light = toPrimitiveRef(colors.light) || 'Color.Unspecified';
-      const dark = toPrimitiveRef(colors.dark || colors.light) || 'Color.Unspecified';
+      // Values are already primitive references or hex fallback
+      const light = colors.light || 'Color.Unspecified';
+      const dark = colors.dark || colors.light || 'Color.Unspecified';
       return `    val ${name}
         @Composable
         get() = getColor(light = ${light}, dark = ${dark})`;
@@ -309,10 +357,11 @@ async function buildTokens() {
   const packageName = 'com.accor.designsystem.compose';
 
   // Clear maps before building
-  primitiveColorMap.clear();
+  primitivePathMap.clear();
+  brandbookPathMap.clear();
   semanticColorsMap.clear();
 
-  // First, collect primitive colors for reverse lookup
+  // First, collect primitive colors for path-based lookup
   const primitiveCollectSD = new StyleDictionary({
     source: ['tokens/primitives/**/*.json'],
     log: { verbosity: 'silent' },
@@ -328,6 +377,38 @@ async function buildTokens() {
     }
   });
   await primitiveCollectSD.buildAllPlatforms();
+
+  // Collect brandbook mappings (brandbook path -> primitive name)
+  const brandbookCollectSD = new StyleDictionary({
+    source: [
+      'tokens/primitives/**/*.json',
+      'tokens/brands/brandBook.json'
+    ],
+    log: {
+      verbosity: 'silent',
+      errors: { brokenReferences: 'warn' }
+    },
+    platforms: {
+      compose: {
+        transformGroup: 'tokens-studio',
+        buildPath: 'build/kotlin/',
+        files: [{
+          destination: '_brandbook_temp.kt',
+          format: 'compose/brandbook-collect',
+          filter: (token) => {
+            // Only collect brandbook color tokens
+            return token.path[0] === 'wel' && token.path[1] === 'web' && token.path[2] === 'bSem';
+          }
+        }]
+      }
+    }
+  });
+
+  try {
+    await brandbookCollectSD.buildAllPlatforms();
+  } catch (e) {
+    console.log('Brandbook collection warning:', e.message.split('\n')[0]);
+  }
 
   // Build primitives file
   const primitiveSD = new StyleDictionary({
@@ -428,6 +509,7 @@ async function buildTokens() {
   // Clean up temp files
   try {
     fs.unlinkSync('build/kotlin/_primitives_temp.kt');
+    fs.unlinkSync('build/kotlin/_brandbook_temp.kt');
     fs.unlinkSync('build/kotlin/_light_temp.kt');
     fs.unlinkSync('build/kotlin/_dark_temp.kt');
   } catch (e) {
