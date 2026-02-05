@@ -78,7 +78,12 @@ StyleDictionary.registerFormat({
     const objectName = options.objectName || 'Colors';
 
     const tokens = dictionary.allTokens
-      .filter(token => (token.$type || token.type) === 'color')
+      .filter(token => {
+        if ((token.$type || token.type) !== 'color') return false;
+        // Exclude "leg" group (wel.prim.color.leg.*)
+        if (token.path.includes('leg')) return false;
+        return true;
+      })
       .map(token => {
         const value = token.value || token.$value;
         const composeColor = toComposeColor(value);
