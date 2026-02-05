@@ -102,6 +102,7 @@ import androidx.compose.ui.graphics.Color
 
 @Suppress("MagicNumber")
 internal object ${objectName} {
+
 ${tokens}
 }
 `;
@@ -249,6 +250,7 @@ import com.accor.designsystem.compose.AccorColor.getColor
 
 @Suppress("MagicNumber")
 object ${objectName} {
+
 ${tokens}
 }
 `;
