@@ -158,6 +158,27 @@ ${tokens}
 // Global storage for merged semantic colors
 const semanticColorsMap = new Map();
 
+// Global storage for primitive color value -> name mapping
+const primitiveColorMap = new Map();
+
+// Custom format: Collect primitive colors for reverse lookup (includes ALL primitives for mapping)
+StyleDictionary.registerFormat({
+  name: 'compose/primitives-collect',
+  format: ({ dictionary }) => {
+    dictionary.allTokens
+      .filter(token => (token.$type || token.type) === 'color')
+      .forEach(token => {
+        const value = token.value || token.$value;
+        const composeColor = toComposeColor(value);
+        if (!composeColor) return;
+        const name = toPrimitiveKotlinName(token.path);
+        // Store hex value -> primitive name mapping
+        primitiveColorMap.set(composeColor, `AccorColorPrimitives.${name}`);
+      });
+    return '';
+  }
+});
+
 // Custom format: Collect semantic colors for merging
 StyleDictionary.registerFormat({
   name: 'compose/semantic-collect',
@@ -200,10 +221,16 @@ StyleDictionary.registerFormat({
 
 // Function to generate merged semantic colors file
 function generateMergedSemanticColors(packageName, objectName) {
+  // Helper to get primitive reference or fallback to hex
+  const toPrimitiveRef = (composeColor) => {
+    if (!composeColor || composeColor === 'Color.Unspecified') return 'Color.Unspecified';
+    return primitiveColorMap.get(composeColor) || composeColor;
+  };
+
   const tokens = Array.from(semanticColorsMap.entries())
     .map(([name, colors]) => {
-      const light = colors.light || 'Color.Unspecified';
-      const dark = colors.dark || colors.light || 'Color.Unspecified';
+      const light = toPrimitiveRef(colors.light) || 'Color.Unspecified';
+      const dark = toPrimitiveRef(colors.dark || colors.light) || 'Color.Unspecified';
       return `    val ${name}
         @Composable
         get() = getColor(light = ${light}, dark = ${dark})`;
@@ -213,20 +240,14 @@ function generateMergedSemanticColors(packageName, objectName) {
   return `package ${packageName}
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import com.accor.designsystem.compose.AccorColor.getColor
 
+@Suppress("MagicNumber")
 object ${objectName} {
 ${tokens}
-}
-
-@Composable
-private fun getColor(light: Color, dark: Color): Color {
-    return if (isSystemInDarkTheme()) dark else light
-}
-
-@Composable
-private fun isSystemInDarkTheme(): Boolean {
-    return androidx.compose.foundation.isSystemInDarkTheme()
 }
 `;
 }
@@ -237,7 +258,28 @@ async function buildTokens() {
 
   const packageName = 'com.accor.designsystem.compose';
 
-  // Build primitives (all colors)
+  // Clear maps before building
+  primitiveColorMap.clear();
+  semanticColorsMap.clear();
+
+  // First, collect primitive colors for reverse lookup
+  const primitiveCollectSD = new StyleDictionary({
+    source: ['tokens/primitives/**/*.json'],
+    log: { verbosity: 'silent' },
+    platforms: {
+      compose: {
+        transformGroup: 'tokens-studio',
+        buildPath: 'build/kotlin/',
+        files: [{
+          destination: '_primitives_temp.kt',
+          format: 'compose/primitives-collect'
+        }]
+      }
+    }
+  });
+  await primitiveCollectSD.buildAllPlatforms();
+
+  // Build primitives file
   const primitiveSD = new StyleDictionary({
     source: ['tokens/primitives/**/*.json'],
     log: { verbosity: 'default' },
@@ -258,14 +300,11 @@ async function buildTokens() {
   });
   await primitiveSD.buildAllPlatforms();
 
-  // Clear the map before collecting
-  semanticColorsMap.clear();
-
   // Collect Light mode colors
   const lightSD = new StyleDictionary({
     source: [
       'tokens/primitives/**/*.json',
-      'tokens/brands/all.json',
+      'tokens/brands/brandBook.json',
       'tokens/colorModes/light.json'
     ],
     log: {
@@ -300,7 +339,7 @@ async function buildTokens() {
   const darkSD = new StyleDictionary({
     source: [
       'tokens/primitives/**/*.json',
-      'tokens/brands/all.json',
+      'tokens/brands/brandBook.json',
       'tokens/colorModes/dark.json'
     ],
     log: {
@@ -338,6 +377,7 @@ async function buildTokens() {
 
   // Clean up temp files
   try {
+    fs.unlinkSync('build/kotlin/_primitives_temp.kt');
     fs.unlinkSync('build/kotlin/_light_temp.kt');
     fs.unlinkSync('build/kotlin/_dark_temp.kt');
   } catch (e) {
