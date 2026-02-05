@@ -42,15 +42,28 @@ function toComposeColor(value) {
   return null;
 }
 
-// Helper to convert token path to Kotlin name (primitives)
+// Helper to convert token path to Kotlin name (primitives) - PascalCase, simplified
 function toPrimitiveKotlinName(path) {
-  return path
-    .map((part, index) => {
-      if (/^\d/.test(part)) part = `_${part}`;
-      part = part.replace(/-temp$/, 'Temp');
-      const camelPart = part.replace(/-([a-zA-Z0-9])/g, (_, char) => char.toUpperCase());
-      if (index === 0) return camelPart.charAt(0).toLowerCase() + camelPart.slice(1);
-      return camelPart.charAt(0).toUpperCase() + camelPart.slice(1);
+  // Join path and remove common prefixes
+  const fullName = path.join('-');
+
+  // Remove prefixes like wel-prim-color-leg-, wel-prim-color-, etc.
+  let cleanName = fullName
+    .replace(/^wel-prim-color-leg-/i, '')
+    .replace(/^wel-prim-color-/i, '')
+    .replace(/^wel-prim-/i, '')
+    .replace(/^wel-/i, '');
+
+  // Handle -temp suffix
+  cleanName = cleanName.replace(/-temp$/i, 'Temp');
+
+  // Convert to PascalCase
+  return cleanName
+    .split('-')
+    .map(part => {
+      // Handle numbers - don't add underscore, just append
+      if (/^\d+$/.test(part)) return part;
+      return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
     })
     .join('');
 }
@@ -78,7 +91,8 @@ StyleDictionary.registerFormat({
 
 import androidx.compose.ui.graphics.Color
 
-object ${objectName} {
+@Suppress("MagicNumber")
+internal object ${objectName} {
 ${tokens}
 }
 `;

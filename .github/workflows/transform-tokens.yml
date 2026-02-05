@@ -67,4 +67,5 @@ jobs:
             - AccorColorSemantics.kt
           branch: update-design-tokens
           base: develop
+          update-pull-request-method: update
           delete-branch: true
